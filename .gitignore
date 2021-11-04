@@ -1,0 +1,8 @@
+/build/
+/objectbox-models/
+/.gradle/
+/out/
+/.idea/
+/clientDb/
+/src/generated/
+/src/main/proto/
