@@ -1,6 +1,6 @@
 package ir.deepmine.asr.normalization;
 
-import java.util.StringJoiner;
+import java.util.Iterator;
 
 class Utils {
     /**
@@ -55,11 +55,17 @@ class Utils {
     }
 
     public static String join(CharSequence delimiter,
-                              Iterable<? extends CharSequence> elements) {
-        StringJoiner joiner = new StringJoiner(delimiter);
-        for (CharSequence cs: elements) {
-            joiner.add(cs);
+            Iterable<? extends CharSequence> elements) {
+        Iterator<? extends CharSequence> iterator = elements.iterator();
+        if (!iterator.hasNext()) {
+            return "";
         }
-        return joiner.toString();
+        StringBuilder builder = new StringBuilder(64);
+        builder.append(iterator.next());
+        while (iterator.hasNext()) {
+            builder.append(delimiter);
+            builder.append(iterator.next());
+        }
+        return builder.toString();
     }
 }
