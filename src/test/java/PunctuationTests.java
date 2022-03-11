@@ -8,6 +8,9 @@ public class PunctuationTests {
         punctuations.add("نقطه ویرگول", "؛ ");
         punctuations.add("علامت تعجب", "! ");
         punctuations.add("نقطه", ". ");
+        punctuations.add("دلار", " $ ");
+        punctuations.add("خط جدید", "\\n");
+
     }
 
     String[][] testCases = {
@@ -15,6 +18,10 @@ public class PunctuationTests {
                     "امروز هوا سرد است؛ نه اینطور نیست. "},
             {"امروز هوا سرد است نقطه‌ویرگول نه اینطور علامت‌تعجب نیست نقطه",
                     "امروز هوا سرد است؛ نه اینطور! نیست. "},
+            {"این یک علامت دلار است نقطه",
+                    "این یک علامت $ است. "},
+            {"این یک خط جدید است نقطه",
+                    "این یک\nاست. "},
     };
 
     @Test

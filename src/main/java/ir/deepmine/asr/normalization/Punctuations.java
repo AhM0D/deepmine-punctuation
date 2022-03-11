@@ -31,7 +31,13 @@ public class Punctuations {
     }
 
     public boolean add(String wordSequence, String punctuation){
-        // wordSequence = wordSequence.replace("‌", " ");
+        if (punctuation.contains("$") && !punctuation.contains("\\$")) {
+            punctuation = punctuation.replace("$", "\\$");
+        }
+        if (punctuation.contains("\\n")) {
+            punctuation = punctuation.replace("\\n", "\n");
+        }
+        wordSequence = wordSequence.strip();
         Tuple2<String, Pattern> value = map.get(wordSequence);
         if (value != null && value.Item1.equals(punctuation)) {
             return false;
@@ -40,11 +46,11 @@ public class Punctuations {
             patterns.remove(value);
         }
         StringBuilder builder = new StringBuilder(wordSequence.length());
-        String[] words = wordSequence.split(" ");
+        String[] words = wordSequence.split("([ \u200C])+");
         builder.append(" ?");
         builder.append(words[0]);
         for (int i = 1; i < words.length; i++) {
-            builder.append("( |‌)?");
+            builder.append("( |\u200C)?");
             builder.append(words[i]);
         }
         builder.append(" ?");
@@ -65,7 +71,7 @@ public class Punctuations {
     }
 
     public boolean remove(String wordSequence){
-        wordSequence = wordSequence.replace("‌", " ");
+        wordSequence = wordSequence.replace("\u200C", " ");
         Tuple2<String, Pattern> value = map.get(wordSequence);
         if (value == null) {
             return false;
